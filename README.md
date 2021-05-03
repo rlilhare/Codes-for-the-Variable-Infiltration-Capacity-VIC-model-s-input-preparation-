@@ -1,2 +1,3 @@
 # Codes-for-the-Variable-Infiltration-Capacity-VIC-model-s-input-preparation-
 Codes in this repo refer and help users to prepare various input flies for the Variable Infiltration Capacity (VIC) hydrological model
+Firstly, run the R code to resample the soil data as the code simply puts values of soil parameters from default (large) grid to required (smaller) grid. For example, in present run 0.50 degree to 0.10 degree, without any interpolation, In R code methods=ngb means nothing to do with interpolation. This gives regrid soil file for whole area. Then use Matlab code to join the fid for the area of study. Note that we can't resample elevation in the soil file so we input elevation data from SRTM DEM for the current file prepration.
