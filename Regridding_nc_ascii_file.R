@@ -1,5 +1,5 @@
 #Rcode to regrid the VICSoildata into required resolution. Data format must be .nc
-#RajtantraLilhare@UNBC
+#RajtantraLilhare@UNBC, Prince George, BC Canada
 
 rm(list = ls())
 cat("\014")
@@ -15,7 +15,7 @@ library(SDMTools) # to covert ascii to dataframe and viceverca
 
 # ascii REGRIDDING
 #Data
-asc<-read.csv("soil_NRB1_0_25.csv") ##Input raw VIC soil here in this formate #Lat #Lon #param1,2,3,4...........
+asc<-read.csv("soil_NRB1_0_25.csv") ##Input raw (default) VIC soil here in this formate #Lat #Lon #param1,2,3,4...........
 head(asc)
 latlon<-asc[,c(1,2)]
 head(latlon)
@@ -42,22 +42,13 @@ for ( i in 1:49){     #Here define number of colomn of raw soil file except lat 
   txt2ascii(i)
 }
 
-# Read each ascii as raster
-# Rf<-list.files(path="Y:\\Aseem_PhD_Research\\Data\\Regridding\\ascii",pattern='.asc$')
-# length(Rf)
-
-# for (i in Rf){
-#   assign(i, raster(i))
-#  }
-
 # read ascii as stacked layer and brick them
 rrr<-(list.files(pattern = ".asc$"))
 rrr
 r4<-rrr[order(as.numeric(sub("([0-9]*).*", "\\1", rrr)))]
 r4
 
-# r<-stack(list.files(pattern = ".asc$"))
-# r
+
 r<-stack(r4)
 r
 
@@ -132,3 +123,5 @@ fnldf<-dcast(mt2df,Lat+Lon~variable,value.var="value")
 head(fnldf)
 
 write.csv(fnldf,file="Soil_NRB_0.05.csv") #your output regridded file
+#after getting this file user must rearrange colomn (1,2,3,4.....) in the Soil_NRB_0.05.csv file and convert the .csv file to .txt to run the VIC model                   
+
